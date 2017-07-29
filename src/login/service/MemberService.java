@@ -13,6 +13,8 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import com.mysql.cj.jdbc.Blob;
+
 import login.memberdetails.Member;
 
 @Repository
@@ -70,5 +72,12 @@ public class MemberService {
 			hm.put("un", username);
 			List<Member> org=namedParameterJdbcTemplate.query(query, hm, new loginRowmapper());
 			return org;
+		}
+		public boolean upload(String fname,String username) {
+			String query="update member_details set image=:fname where username=:un";
+			HashMap<String, String> hm=new HashMap<>();
+			hm.put("fname", fname);
+			hm.put("un",username );
+			return namedParameterJdbcTemplate.update(query, hm)==1;
 		}
 }

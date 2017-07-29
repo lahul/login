@@ -9,9 +9,10 @@
 </head>
 <body>
 <h1 align="center">Profile</h1>
-<div align="center">
+<div>
 <c:forEach var="test" items="${orgs}">
 <table border="solid"><tr></tr>
+<div align="center" style="float:left;width:50%">
 <tr><td> Username:</td><td>
 <c:out value="${test.username}"/></td></tr>
 <tr><td>Email:</td><td>
@@ -22,6 +23,14 @@
 <c:out value="${test.gender}"/></td></tr>
 <tr><td>Qualification:</td><td>
 <c:out value="${test.qualification}"/></td></tr>
+</div>
+<div  style="float:right;width:50%">
+<img src="resources/${test.image}" alt="no image" wodth="300" height="200"/>
+<form action="uploadpic" method="post">
+<input type="file" name="img"/>
+<input type="submit" value="upload"/>
+</form>
+</div>
 </table>
 </c:forEach>
 </div>

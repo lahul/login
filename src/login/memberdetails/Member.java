@@ -11,6 +11,8 @@ public class Member {
 	private String email;
 	private String gender;
 	private String qualification;
+	private String image;
+	
 	public String getUsername() {
 		return username;
 	}
@@ -46,6 +48,12 @@ public class Member {
 	}
 	public void setQualification(String qualification) {
 		this.qualification = qualification;
+	}
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
 	}
 	
 	

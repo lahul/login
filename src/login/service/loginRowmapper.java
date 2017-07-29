@@ -5,6 +5,8 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
 
+import com.mysql.cj.jdbc.Blob;
+
 import login.memberdetails.Member;
 
 public class loginRowmapper implements RowMapper<Member>{
@@ -18,6 +20,7 @@ public class loginRowmapper implements RowMapper<Member>{
 		mem.setDob(rs.getString("dob"));
 		mem.setGender(rs.getString("gender"));
 		mem.setQualification(rs.getString("qualification"));
+		mem.setImage(rs.getString("image"));
 		return mem;
 	}
 	

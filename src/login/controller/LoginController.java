@@ -1,17 +1,30 @@
 package login.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.nio.channels.FileChannel;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+
+import com.mysql.cj.jdbc.Blob;
 
 import login.memberdetails.Member;
 import login.service.MemberService;
@@ -88,7 +101,7 @@ public class LoginController {
 			model.addAttribute("username",username);
 			session=request.getSession();
 			session.setAttribute("username", username);
-			session.setMaxInactiveInterval(10);
+			session.setMaxInactiveInterval(120);
 			return "loginsuccess";
 		}
 		else {
@@ -112,5 +125,19 @@ public class LoginController {
 		}
 		else
 			return "login";
+	}
+	@RequestMapping("uploadpic")
+	public String showpic(Model model,HttpServletRequest request,HttpSession session) throws IOException {
+		String img=(String) request.getParameter("img");
+		File f=new File(img);
+		String file1=f.getName();
+		String dest="C:\\Users\\LAHUL\\eclipse-workspace\\login\\WebContent\\resources\\"+file1;
+		File f2=new File(dest);
+		Files.copy(f.toPath(), f2.toPath(),StandardCopyOption.REPLACE_EXISTING);
+		String username=(String) session.getAttribute("username");
+		boolean val=ms.upload(file1,username);
+		List<Member> orgs=ms.retrieve(username);
+		model.addAttribute("orgs",orgs);
+		return "profile";
 	}
 }

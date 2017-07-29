@@ -2,6 +2,7 @@ package login.Initializer;
 
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
@@ -77,7 +78,7 @@ public class LoginConfig implements WebMvcConfigurer{
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry arg0) {
-		// TODO Auto-generated method stub
+		arg0.addResourceHandler("/resources/**").addResourceLocations("/resources/");
 		
 	}
 
